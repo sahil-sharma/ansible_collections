@@ -18,7 +18,7 @@ authors:
 - Sahil Sharma
 
 # The URL of the originating SCM repository
-repository: https://github.com/ansible_collections
+repository: https://github.com/sahil-sharma/ansible_collections
 
 ### OPTIONAL but strongly recommended
 # A short summary description of the collection
