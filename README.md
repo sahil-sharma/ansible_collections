@@ -29,7 +29,7 @@ We will create two VMs (ansible, test1) using the same `Vagrantfile`.
 # Virtual machine `ansible` will install ansible-core (2.17.7) during provisioning (aka init script).
 vagrant up ansible
 
-Virtual machine `test1` will do some basic stuff during provisioning (aka init script).
+# Virtual machine `test1` will do some basic stuff during provisioning (aka init script).
 vagrant up test1
 ```
 
