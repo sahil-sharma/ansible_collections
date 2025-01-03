@@ -1,7 +1,5 @@
 # Ansible Collection - task.automation
 
-# My Collection
-
 This collection contains two roles:
 
 1. **local_accounts**: Creates multiple local user accounts with configurable properties and enables passwordless login.
