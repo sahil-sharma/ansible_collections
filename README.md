@@ -27,7 +27,10 @@ Set the collection path and run the playbook:
 ```bash
 export ANSIBLE_COLLECTIONS_PATHS=/vagrant/ansible_collections
 cd /vagrant/ansible_collections/task/automation
-ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml --check # CheckMode allows you to simulate the execution of a playbook without making any actual changes to the target systems
+
+# CheckMode allows you to simulate the execution of a playbook without making any actual changes to the target systems
+ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml --check
+
 ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml
 ```
 
