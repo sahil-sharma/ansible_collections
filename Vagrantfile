@@ -17,7 +17,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.vm.provision "shell", inline: 'sudo apt-add-repository ppa:ansible/ansible --yes \
         && sudo apt install tree ansible -y \
         && cp /vagrant/id_rsa* /home/vagrant/.ssh \
-        && echo "export ANSIBLE_COLLECTION_PATH=/vagrant/test/my_collection" >> /home/vagrant/.bashrc \
         && source /home/vagrant/.bashrc'
   end
 
