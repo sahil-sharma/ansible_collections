@@ -1,4 +1,4 @@
-# Ansible Collection - my_namespace.my_collection
+# Ansible Collection - task.automation
 
 # My Collection
 
