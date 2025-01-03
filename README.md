@@ -31,6 +31,7 @@ cd /vagrant/ansible_collections/task/automation
 # CheckMode allows you to simulate the execution of a playbook without making any actual changes to the target systems
 ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml --check
 
+# Without CheckMode (no --dry-run)
 ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml
 ```
 
