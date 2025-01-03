@@ -1,0 +1,7 @@
+---
+# handlers file for roles/ssh_config
+
+- name: Restart SSH Daemon
+  service:
+    name: sshd
+    state: restarted

@@ -1,0 +1,50 @@
+---
+# tasks file for roles/local_accounts
+
+- name: Create nopasswordlogin group
+  ansible.builtin.group:
+    name: nopasswordlogin
+    state: present
+  check_mode: "{{ ansible_check_mode }}"
+
+- name: Configure sudoers for passwordless authentication
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%nopasswordlogin'
+    line: '%nopasswordlogin ALL=(ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'
+  check_mode: "{{ ansible_check_mode }}"
+
+- name: Create user accounts
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: present
+    shell: "{{ item.shell }}"
+    uid: "{{ item.userid }}"
+    home: "{{ item.home }}"
+    expires: >-
+      {% if item.expiry_date is defined and item.expiry_date %}
+        {{ (item.expiry_date | to_datetime('%Y-%m-%d')).timestamp() | int }}
+      {% else %}
+      -1
+      {% endif %}
+    groups: "{{ item.groups | join(',') }}"
+    append: yes
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.name }}"
+  check_mode: "{{ ansible_check_mode }}"
+
+- name: Display created users information
+  debug:
+    msg: >-
+     User {{ item.name }} created with expiry date:
+     {% if item.expiry_date is defined and item.expiry_date %}
+     {{ item.expiry_date }}
+     {% else %}
+     never
+     {% endif %}
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.name }}"

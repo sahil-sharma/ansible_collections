@@ -1,0 +1,31 @@
+---
+# tasks file for roles/ssh_config
+
+- name: Ensure SSH daemon configuration file exists
+  stat:
+    path: "{{ ssh_config_file }}"
+  register: ssh_config_stat
+
+- name: Backup existing SSH configuration (if it exists)
+  copy:
+    src: "{{ ssh_config_file }}"
+    dest: "{{ ssh_config_file }}.bak"
+  when: ssh_config_stat.stat.exists
+  check_mode: "{{ ansible_check_mode }}"
+
+- name: Configure SSH daemon options
+  lineinfile:
+    path: "{{ ssh_config_file }}"
+    regexp: "^{{ item.key }}\\s+"
+    line: "{{ item.key }} {{ item.value }}"
+    state: present
+  loop: "{{ ssh_config_options | dict2items }}"
+  notify: Restart SSH Daemon
+  check_mode: "{{ ansible_check_mode }}"
+
+- name: Ensure SSH daemon is running and enabled
+  service:
+    name: sshd
+    state: started
+    enabled: yes
+  check_mode: "{{ ansible_check_mode }}"

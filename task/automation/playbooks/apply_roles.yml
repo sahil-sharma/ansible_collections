@@ -1,0 +1,8 @@
+# Playbook to apply local_accounts and ssh_config roles
+
+- name: Apply local user creation and SSH configuration
+  hosts: test-machine
+  become: true
+  roles:
+    - task.automation.local_accounts
+    - task.automation.ssh_config

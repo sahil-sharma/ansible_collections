@@ -1,0 +1,9 @@
+---
+# defaults config options for roles/ssh_config
+
+ssh_config_options:
+  PasswordAuthentication: "yes"
+  PermitEmptyPasswords: "no"
+  PermitRootLogin: "no"
+
+ssh_config_file: "/etc/ssh/sshd_config"
