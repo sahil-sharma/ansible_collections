@@ -22,12 +22,34 @@ This collection contains two roles:
     - task.automation.ssh_config
 ```
 
+We are using Vagrant (Hashicorp) CLI to create a virtual machine with VirtualBox OSS (v7.1.0) on Ubuntu-24.04.
+
+We will create two VMs (ansible, test1) using the same `Vagrantfile`.
+```bash
+# Virtual machine `ansible` will install ansible-core (2.17.7) during provisioning (aka init script).
+vagrant up ansible
+
+# Virtual machine `test1` will do some basic stuff during provisioning (aka init script).
+vagrant up test1
+```
+
+We can SSH into these machines in two separate terminals:
+```bash
+vagrant ssh ansible
+
+vagrant ssh test1
+```
+
 Set the collection path and run the playbook:
 
 ```bash
 export ANSIBLE_COLLECTIONS_PATHS=/vagrant/ansible_collections
 cd /vagrant/ansible_collections/task/automation
-ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml --check # CheckMode allows you to simulate the execution of a playbook without making any actual changes to the target systems
+
+# CheckMode allows you to simulate the execution of a playbook without making any actual changes to the target systems
+ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml --check
+
+# Without CheckMode (no --dry-run)
 ansible-playbook -i inventory/hosts.yml playbooks/apply_roles.yml
 ```
 
